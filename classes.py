@@ -60,18 +60,23 @@ class User:
         self.email = email
         self.account = [BankAccount(0, 0.02)]
 
+    # Return user data via the Account classes account_query method.
     def get_user_data(self, acc_index  = 0):
         return [self.name, self.email, self.account[acc_index].account_query()]
 
+    # Run the user's bank account's deposit method
     def make_deposit(self, amount, acc_index = 0):
         self.account[acc_index].deposit(amount)
 
+    # Run the user's bank account's withdraw method
     def make_withdraw(self, amount, acc_index  = 0):
         self.account[acc_index].withdraw(amount)
 
+    # Print user's balance. 
     def display_user_balance(self, acc_index  = 0):
         print(self.account[acc_index].balance)
 
+    # Access other user's account and make a deposit on their account, withdrawing from the transferring user. 
     def transfer_balance(self, amount, other_user, other_user_acc_index = 0, acc_index = 0):
         if other_user.account[other_user_acc_index].account_number != 0:
             self.make_withdraw(amount, acc_index)
@@ -80,15 +85,21 @@ class User:
             return 'Invalid Account'
 
 
+# Create two test users
 testUser = User("Robert Teets", "teetsrobert@gmail.com")
 secondUser = User("Amelia Troy", "atroy97@gmail.com")
+
+# Make test deposit and withdraw to first user.
 testUser.make_deposit(100)
 testUser.make_withdraw(50)
 
+# Display the balance of each user's account
 testUser.display_user_balance(0)
 secondUser.display_user_balance(0)
 
+# Transfer Money to other user.
 testUser.transfer_balance(50, secondUser, 0, 0)
 
+# Display the balance of each user's account
 testUser.display_user_balance(0)
 secondUser.display_user_balance(0)
